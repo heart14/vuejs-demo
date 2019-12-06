@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>V-FOR遍历对象</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="example">
+  <!--  这种不叫遍历-->
+  <div>
+    <ul>
+      <li>{{heart.name}}</li>
+      <li>{{heart.sex}}</li>
+      <li>{{heart.age}}</li>
+    </ul>
+  </div>
+
+  <!--  在遍历对象的过程中，如果只获取一个值那么获取到的是个value-->
+  <div>
+    <ul>
+      <li v-for="item in heart">{{item}}</li>
+    </ul>
+  </div>
+
+  <!--  在遍历对象的过程中，同时获取key和value，用(value,key) in Object 的形式-->
+  <div>
+    <ul>
+      <li v-for="(value,key) in heart">{{key}} :{{value}}</li>
+    </ul>
+  </div>
+
+  <!--  在遍历对象的过程中，同时获取key和value和索引，用(value,key,index) in Object 的形式，索引下标从0开始-->
+  <div>
+    <ul>
+      <li v-for="(value,key,index) in heart">{{index}}. {{key}} :{{value}}</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>
+<script>
+  const example = new Vue({
+    el: '#example',
+    data: {
+      heart: {
+        name: '李文飞',
+        sex: 'Male',
+        age: 25
+      }
+    }
+  })
+</script>

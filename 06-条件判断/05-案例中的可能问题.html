@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>用户登录方式切换案例</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="example">
+  <div>
+    <button @click="changeType">切换</button>
+    <br>
+    <span v-if="isUser">
+      <label for="username">用 户 </label><input type="text" id="username" placeholder="用户名" key="user"><br>
+      <label for="uPassword">密 码 </label><input type="password" id="uPassword" placeholder="密码"/>
+    </span>
+    <span v-else>
+      <label for="email">邮 箱 </label><input type="text" id="email" placeholder="用户邮箱" key="email"><br>
+      <label for="ePassword">密 码 </label><input type="password" id="ePassword" placeholder="密码"/>
+    </span>
+  </div>
+</div>
+<!--问题描述：这个案例中，点击切换后，前一次输入框的内容会在切换后被保留到切换后的输入框中-->
+<!--问题解答：vue虚拟dom进行页面渲染时，会复用其它已经用不到的元素-->
+<!--这个问题涉及到vue底层实现-->
+<!--解决方案：使用key属性，如果两个元素的key相同时，在可复用的时候便会进行复用，如果两个元素key不同，在可复用的时候由于key不同，便不会进行复用-->
+
+</body>
+</html>
+<script>
+  const example = new Vue({
+    el: '#example',
+    data: {
+      isUser: true
+    },
+    methods: {
+      changeType() {
+        this.isUser = !this.isUser;
+      }
+    }
+  })
+</script>

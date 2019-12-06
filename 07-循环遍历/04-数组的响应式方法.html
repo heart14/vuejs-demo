@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>数组的响应式方法</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="example">
+  <div>
+    <ul>
+      <li v-for="item in letters">{{item}}</li>
+    </ul>
+  </div>
+  <button @click="arrayMethod">通过数组方法操作数组</button>
+  <button @click="indexMethod">通过索引操作数组</button>
+
+</div>
+</body>
+</html>
+<script>
+  const example = new Vue({
+    el: '#example',
+    data: {
+      letters: ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+    },
+    methods: {
+      //响应式
+      arrayMethod() {
+        this.letters.push("LWF");
+        //.push()方法 在数组最后面添加元素
+        //.pop() 删除数组中的最后一个元素
+        //.shift() 删除数组中的第一个元素
+        //.unshift() 在数组最前面添加元素
+        //.sort() 排序
+        //.reverse() 反转
+        //.splice(start,offset,value) 可以添加元素、删除元素、替换元素
+        //    start :要操作的元素下标
+        //    offset:偏移量，从start开始数
+        //    value :添加或替换元素时的目标value
+        //    offset和value都不传的时候，从start到数组最后全部删除
+
+        //注意 上面这些方法的参数列表都是可变参数，也就是可用逗号隔开传多个参数
+
+
+        //  扩展，修改对象还可以使用Vue提供的一个方法，这个方法也是响应式的
+        //   Vue.set(要修改的对象，索引，目标值)
+
+      },
+      //非响应式
+      indexMethod() {
+        this.letters[this.letters.length - 1] = "XYZ";
+      }
+
+    }
+  })
+</script>

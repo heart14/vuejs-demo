@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>案例</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="example">
+
+  <div>
+    <table>
+      <thead>
+      <tr>
+        <th></th>
+        <th>书籍名称</th>
+        <th>出版日期</th>
+        <th>价格</th>
+        <th>购买数量</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="(item,index) in books">
+        <td>{{index+1}}</td>
+        <td>{{item.bookName}}</td>
+        <td>{{item.bookPrint}}</td>
+        <td>￥{{item.bookPrice}}.00</td>
+        <td>
+          <button @click="subQuantity(index)">-</button>
+          {{item.bookQuantity}}
+          <button @click="addQuantity(index)">+</button>
+        </td>
+        <td>
+          <button @click="removeBook(index)">移除</button>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="6">{{totalPrice}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</body>
+</html>
+<script>
+  const example = new Vue({
+    el: '#example',
+    data: {
+      books: [
+        {
+          bookName: '《算法导论》',
+          bookPrint: '2006-09',
+          bookPrice: 85,
+          bookQuantity: 1
+        },
+        {
+          bookName: '《UNIX编程艺术》',
+          bookPrint: '2006-02',
+          bookPrice: 59,
+          bookQuantity: 1
+        },
+        {
+          bookName: '《编程珠玑》',
+          bookPrint: '2008-10',
+          bookPrice: 39,
+          bookQuantity: 1
+        },
+        {
+          bookName: '《数据结构》',
+          bookPrint: '2006-03',
+          bookPrice: 128,
+          bookQuantity: 1
+        }
+      ]
+    },
+    methods: {
+      subQuantity(index) {
+        const book = this.books[index];
+        book.bookQuantity--;
+        this.books.splice(index, 1, book);
+
+        if (book.bookQuantity < 0) {
+          this.books.splice(index, 1);
+        }
+      },
+      addQuantity(index) {
+        const book = this.books[index];
+        book.bookQuantity++;
+        this.books.splice(index, 1, book);
+      },
+      removeBook(index) {
+        this.books.splice(index, 1);
+      }
+    },
+    computed: {
+      totalPrice() {
+        let total = 0;
+        for (let i = 0; i < this.books.length; i++) {
+          total += this.books[i].bookPrice * this.books[i].bookQuantity;
+        }
+        return "￥" + total + ".00";
+      }
+    }
+  })
+</script>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>V-ON的修饰符</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="example">
+  <!--  .stop修饰符的使用 ：阻止事件冒泡-->
+  <div @click="divClick">
+    <button @click.stop="btnClick">按钮</button>
+  </div>
+  <br>
+
+  <!--  .prevent修饰符的使用 ：组织表单自动提交-->
+  <div>
+    <form action="#">
+      <input type="submit" value="提交" @click.prevent="submitClick">
+    </form>
+  </div>
+  <br>
+
+  <!--  @keyCode|keyAlias ：监听键盘动作-->
+  <div>
+    监听键盘动作<input type="text" @keyup="keyUp" @keydown="keyDown"><br>
+    监听键盘动作<input type="text" @keyup.enter="keyEnterUp">
+  </div>
+  <br>
+
+  <!--  .once 只监听一次-->
+  <div>
+    <button @click.once="onceClick">ONCE</button>
+  </div>
+
+
+  <!--  .native ：监听自定义组件-->
+  <!--  TODO 在讲到自定义组件时再说-->
+</div>
+</body>
+</html>
+<script>
+  const example = new Vue({
+    el: '#example',
+    data: {
+      message: 'hello Vue.js!'
+    },
+    methods: {
+      btnClick() {
+        console.log('btnCLick');
+      },
+      divClick() {
+        console.log('divClick');
+      },
+      submitClick() {
+        console.log('submitClick');
+      },
+      keyUp() {
+        console.log('key up');
+      },
+      keyDown() {
+        console.log('key down');
+      },
+      keyEnterUp() {
+        console.log('key enter up');
+      },
+      onceClick() {
+        console.log('onceClick');
+      }
+    }
+  })
+</script>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>V-IF&V-ELSE</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="example">
+
+  <h1 v-if="score>90">优秀</h1>
+  <h1 v-else-if="score>75">良好</h1>
+  <h1 v-else-if="score>60">及格</h1>
+  <h1 v-else>差</h1>
+
+  <hr>
+  <!--  但是如果逻辑复杂的话 不如用计算属性来实现-->
+  <h1>{{result}}</h1>
+</div>
+
+</body>
+</html>
+<script>
+  const example = new Vue({
+    el: '#example',
+    data: {
+      score: 90
+    },
+    computed: {
+      result() {
+        if (this.score > 90) {
+          return "优秀";
+        } else if (this.score > 75) {
+          return "良好";
+        } else if (this.score > 60) {
+          return "及格";
+        } else {
+          return "差";
+        }
+      }
+    }
+  })
+</script>

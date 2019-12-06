@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>作业</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!--展示列表，点击时变红色-->
+<div id="example">
+  <div>
+    <ul>
+      <li v-for="(item,index) in movies" :class="{active: currentIndex === index}" @click="isCurrent(index)">{{item}}
+      </li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>
+<script>
+  const example = new Vue({
+    el: '#example',
+    data: {
+      movies: ['龙猫', '千与千寻', '哈尔的移动城堡', '天空之城', '风之谷'],
+      currentIndex: 0
+    },
+    methods: {
+      isCurrent(index) {
+        this.currentIndex = index;
+      }
+    }
+  })
+</script>
+<style>
+  .active {
+    color: red;
+  }
+</style>

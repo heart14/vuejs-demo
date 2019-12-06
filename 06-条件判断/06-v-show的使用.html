@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>V-SHOW的使用</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="example">
+
+  <!--  v-if和v-show的区别：-->
+  <!--  v-if条件为false的元素，在dom中不会存在该节点，条件变为true时进行重新创建新dom元素-->
+  <!--  v-show条件为false的元素，在dom中依然存在该节点，只是不显示，相当于css属性 display:none-->
+
+</div>
+
+
+</body>
+</html>
+<script>
+  const example = new Vue({
+    el: '#example',
+    data: {
+      message: 'hello Vue.js!'
+    }
+  })
+</script>

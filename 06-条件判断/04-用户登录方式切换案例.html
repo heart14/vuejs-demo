@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>用户登录方式切换案例</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="example">
+  <div>
+    <button @click="changeType">切换</button>
+    <br>
+    <span v-if="isUser">
+      <label for="username">用户名</label><input type="text" id="username" placeholder="用户名"><br>
+      <label for="uPassword">密 码</label><input type="password" id="uPassword" placeholder="密码"/>
+    </span>
+    <span v-else>
+      <label for="email">邮 箱</label><input type="text" id="email" placeholder="用户邮箱"><br>
+      <label for="ePassword">密 码</label><input type="password" id="ePassword" placeholder="密码"/>
+    </span>
+  </div>
+</div>
+
+</body>
+</html>
+<script>
+  const example = new Vue({
+    el: '#example',
+    data: {
+      isUser: true
+    },
+    methods: {
+      changeType() {
+        this.isUser = !this.isUser;
+      }
+    }
+  })
+</script>

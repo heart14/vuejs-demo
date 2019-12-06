@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>V-FOR使用KEY</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="example">
+  <div>
+    <ul>
+      <li v-for="item in letters">{{item}}</li>
+    </ul>
+  </div>
+  <!--  问题描述：比如现在我要往数组中间字母C和D之间插入一个字母‘M’-->
+  <!--  比较高性能的做法是，直接在C和D之间插入-->
+  <!--  但是实际vue底层的做法是把D改成M，E改成D，F改成E，G改成F，最后再添加一个G，与上面一种做法相比，性能略低-->
+
+  <!--  引入key-->
+  <!--  在本例中，为item添加key，如果进行修改的时候发现可以复用，则会进行复用-->
+  <!--  另外，在本例中，也不可以用为index添加key的方式，因为index是会改变的-->
+  <div>
+    <ul>
+      <li v-for="item in letters" :key="item">{{item}}</li>
+    </ul>
+  </div>
+
+  <!--  另外，如果是在数组尾端插入元素，则无需key也差不多的-->
+  <!--  另外，如果元素会又重复，则会有警告-->
+</div>
+</body>
+</html>
+<script>
+  const example = new Vue({
+    el: '#example',
+    data: {
+      letters: ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+    }
+  })
+</script>
