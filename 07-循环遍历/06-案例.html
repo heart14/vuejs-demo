@@ -8,7 +8,7 @@
 <body>
 <div id="example">
 
-  <div>
+  <div v-if="notBlank">
     <table>
       <thead>
       <tr>
@@ -25,9 +25,9 @@
         <td>{{index+1}}</td>
         <td>{{item.bookName}}</td>
         <td>{{item.bookPrint}}</td>
-        <td>￥{{item.bookPrice}}.00</td>
+        <td>{{item.bookPrice|showPrice}}</td>
         <td>
-          <button @click="subQuantity(index)">-</button>
+          <button @click="subQuantity(index)" v-bind:disabled="item.bookQuantity<=1">-</button>
           {{item.bookQuantity}}
           <button @click="addQuantity(index)">+</button>
         </td>
@@ -36,10 +36,13 @@
         </td>
       </tr>
       <tr>
-        <td colspan="6">{{totalPrice}}</td>
+        <td colspan="6">{{totalPrice|showPrice}}</td>
       </tr>
       </tbody>
     </table>
+  </div>
+  <div v-else>
+    <span>购物车为空！</span>
   </div>
 
 </div>
@@ -49,6 +52,7 @@
   const example = new Vue({
     el: '#example',
     data: {
+      notBlank: true,
       books: [
         {
           bookName: '《算法导论》',
@@ -85,6 +89,9 @@
         if (book.bookQuantity < 0) {
           this.books.splice(index, 1);
         }
+        if (this.books.length === 0) {
+          this.notBlank = false;
+        }
       },
       addQuantity(index) {
         const book = this.books[index];
@@ -93,6 +100,9 @@
       },
       removeBook(index) {
         this.books.splice(index, 1);
+        if (this.books.length === 0) {
+          this.notBlank = false;
+        }
       }
     },
     computed: {
@@ -101,7 +111,12 @@
         for (let i = 0; i < this.books.length; i++) {
           total += this.books[i].bookPrice * this.books[i].bookQuantity;
         }
-        return "￥" + total + ".00";
+        return total;
+      }
+    },
+    filters: {
+      showPrice(price) {
+        return "￥" + price.toFixed(2);
       }
     }
   })
