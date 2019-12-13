@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>V-MODEL结合SELECT</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+
+  <!--  1.只能选择一个-->
+  <select name="favorite" id="favorite" v-model="fruit">
+    <option value="苹果">苹果</option>
+    <option value="香蕉">香蕉</option>
+    <option value="橘子">橘子</option>
+    <option value="梨">梨</option>
+    <option value="榴莲">榴莲</option>
+    <option value="葡萄">葡萄</option>
+  </select>
+  <h2>{{fruit}}</h2>
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <!--  2.选择多个-->
+  <select name="favorites" id="favorites" v-model="fruits" multiple>
+    <option value="苹果">苹果</option>
+    <option value="香蕉">香蕉</option>
+    <option value="橘子">橘子</option>
+    <option value="梨">梨</option>
+    <option value="榴莲">榴莲</option>
+    <option value="葡萄">葡萄</option>
+  </select>
+  <h2>{{fruits}}</h2>
+</div>
+</body>
+</html>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      fruit: '苹果',
+      fruits: []
+    }
+  })
+</script>

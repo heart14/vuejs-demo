@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>值绑定</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+  <label v-for="item in originHobbies" v-bind:for="item">
+    <input type="checkbox" v-bind:id="item" v-bind:value="item" v-model="userHobbies">{{item}}
+  </label>
+
+  <hr>
+  <h2>{{userHobbies}}</h2>
+</div>
+
+</body>
+</html>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      originHobbies: ['篮球', '足球', '乒乓球', '台球', '排球', '羽毛球', '高尔夫球'],
+      userHobbies: []
+    }
+  })
+</script>

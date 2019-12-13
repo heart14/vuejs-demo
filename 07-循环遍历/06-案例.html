@@ -107,11 +107,15 @@
     },
     computed: {
       totalPrice() {
-        let total = 0;
-        for (let i = 0; i < this.books.length; i++) {
-          total += this.books[i].bookPrice * this.books[i].bookQuantity;
-        }
-        return total;
+        //一般写法
+        // let total = 0;
+        // for (let i = 0; i < this.books.length; i++) {
+        //   total += this.books[i].bookPrice * this.books[i].bookQuantity;
+        // }
+        // return total;
+
+        //reduce函数写法
+        return this.books.reduce((pre, book) => pre + book.bookPrice * book.bookQuantity, 0);
       }
     },
     filters: {
@@ -119,5 +123,34 @@
         return "￥" + price.toFixed(2);
       }
     }
-  })
+  });
+
+
+  //  js三个高阶函数 filter/map/reduce
+
+  //示例需求：对数组过滤出小于100的元素，将它们乘以2，然后计算总和
+  const nums = [10, 30, 45, 60, 200, 101, 233, 111];
+
+  //1.filter 对数组元素进行筛选，返回值为true的元素存放到一个新数组中，并最终返回新数组
+  let filterNums = nums.filter(function (item) {
+    return item < 100;
+  });
+  console.log(filterNums);
+
+  //2.map 对数组元素进行运算，返回值存放到一个新数组中，并最终返回新数组
+  let mapNums = filterNums.map(function (item) {
+    return item * 2;
+  });
+  console.log(mapNums);
+
+  //3.reduce
+  let reduceNums = mapNums.reduce(function (preValue, item) {
+    return preValue + item;
+  }, 0);
+  console.log(reduceNums);
+
+
+  //箭头函数 效果等同上面三个函数依次执行
+  let total = nums.filter(item => item < 100).map(item => item * 2).reduce((pre, item) => pre + item, 0);
+  console.log(total);
 </script>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>V-MODEL结合CHECKBOX类型</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+  <!--  1.checkbox单个使用-->
+  <label for="agreement">
+    <input type="checkbox" id="agreement" v-model="isAgree">我已阅读并同意《用户协议》
+  </label>
+  <hr>
+  <button v-bind:disabled="!isAgree">注册</button>
+
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+
+
+  <!--  2.checkbox多选框组合使用-->
+  <label for="1"><input type="checkbox" id="1" value="篮球" v-model="hobbies">篮球</label>
+  <label for="2"><input type="checkbox" id="2" value="足球" v-model="hobbies">足球</label>
+  <label for="3"><input type="checkbox" id="3" value="羽毛球" v-model="hobbies">羽毛球</label>
+  <label for="4"><input type="checkbox" id="4" value="乒乓球" v-model="hobbies">乒乓球</label>
+  <hr>
+  <h2>{{hobbies}}</h2>
+</div>
+</body>
+</html>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: 'hello Vue.js',
+      isAgree: false,
+      hobbies: []
+    }
+  })
+</script>
