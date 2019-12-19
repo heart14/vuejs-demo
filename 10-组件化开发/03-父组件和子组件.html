@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>父组件和子组件</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+  <my-cpn1></my-cpn1>
+</div>
+
+
+</body>
+</html>
+
+<script>
+  //子组件不能使用父组件或VUE实例的数据
+
+  //1.创建组件构造器
+
+  const cpn2 = Vue.extend({
+    template: `
+    <div>
+      <h2>我是标题2</h2>
+      <p>自定义组件2</p>
+    </div>
+    `
+  })
+
+  const cpn1 = Vue.extend({
+    template: `
+    <div>
+      <h2>我是标题1</h2>
+      <p>自定义组件1</p>
+      <my-cpn2></my-cpn2>
+    </div>
+    `,
+    components: {
+      //注册子组件
+      'my-cpn2': cpn2
+    }
+  })
+
+
+  //3.创建Vue实例
+  const app = new Vue({
+    el: '#app',
+    components: {
+      'my-cpn1': cpn1
+    }
+  })
+
+</script>

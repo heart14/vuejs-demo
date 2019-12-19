@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>组件注册的语法糖</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+  <my-cpn></my-cpn>
+</div>
+
+
+</body>
+</html>
+
+<script>
+
+  //1.创建组件构造器
+  // const cpn = Vue.extend({
+  //   template: `
+  //   <div>
+  //     <h2>我是标题</h2>
+  //     <p>自定义组件</p>
+  //   </div>
+  //   `
+  // })
+
+  //2.注册组件
+
+
+  //语法糖写法
+  const cpn = Vue.component('my-cpn', {
+    template: `
+      <div>
+        <h2>我是标题</h2>
+        <p>自定义组件</p>
+      </div>
+      `
+  });
+
+
+  //3.创建Vue实例
+  const app = new Vue({
+    el: '#app'
+    // components: {
+    //   'my-cpn': cpn
+    // }
+  })
+
+  //注册局部组件同理，再components:后面直接放template{}对象
+
+</script>

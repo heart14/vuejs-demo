@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>组件数据的存放</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!--注意：组件中不能使用Vue实例的数据-->
+<!--组件中可以有自己的数据-->
+
+<div id="app">
+  <my-cpn></my-cpn>
+  <my-cpn></my-cpn>
+  <my-cpn></my-cpn>
+</div>
+
+
+<template id="my-cpn-template">
+  <div>
+    <h2>当前计数 :{{count}}</h2>
+    <button @click="add">+</button>
+    <button @click="sub">-</button>
+  </div>
+</template>
+
+</body>
+</html>
+<script>
+
+  const app = new Vue({
+    el: '#app',
+    components: {
+      'my-cpn': {
+        template: '#my-cpn-template',
+        //注意 这里的data必须是个函数，而不能像Vue实例中那样写成一个对象
+        data: function () {
+          return {
+            count: 0
+          }
+        },
+        methods: {
+          add() {
+            this.count++;
+          },
+          sub() {
+            this.count--;
+          }
+        }
+      }
+    }
+  })
+  //页面中该组件使用了3次，但它们的count是独立的，这是因为data()函数在每次创建组件实例的时候都返回了一个新count，所以data必须是个函数而不能是个对象
+
+</script>
+
+
+
+
+

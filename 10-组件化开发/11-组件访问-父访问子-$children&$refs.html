@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>组件访问-父访问子-$children&$refs</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!--组件访问和组件通信不一样-->
+<!--组件通信是在父组件和子组件之间传递数据-->
+<!--组件访问是在父组件中可以直接拿到子组件对象，然后操作子组件内部数据或者调用方法之类-->
+<!--同理子组件也可以直接拿到父组件对象，然后进行操作-->
+
+<!--父组件模板-->
+<div id="app">
+  <button @click="btnClick">打印子组件</button>
+  <cpn ref="aaa"></cpn>
+  <hr>
+</div>
+
+<!--子组件模板-->
+<template id="cpn-template">
+  <div>
+    <p>我是子组件</p>
+  </div>
+</template>
+
+</body>
+</html>
+<script>
+  const cpn = {
+    template: '#cpn-template',
+    data() {
+      return {name: '子组件的属性name'}
+    },
+    methods: {
+      showMessage() {
+        console.log("子组件的函数showMessage()");
+      }
+    }
+  }
+
+  const app = new Vue({
+    el: '#app',
+    data: {},
+    components: {
+      cpn
+    },
+    methods: {
+      btnClick() {
+        //$children可以用 但是不常用 更常用的是$refs
+        // console.log(this.$children);
+        // this.$children[0].showMessage();
+        // console.log(this.$children[0].name);
+
+        //$refs需要现在组件使用处加上一个ref属性 然后通过下面方法直接调用该组件下的内容
+        console.log(this.$refs.aaa.name);
+      }
+    }
+  })
+</script>

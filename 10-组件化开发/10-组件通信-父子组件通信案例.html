@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>组件通信-父子组件通信案例</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<!--父组件模板-->
+<div id="app">
+  <h1>父组件中的数据num1 :{{num1}}</h1>
+  <h1>父组件中的数据num2 :{{num2}}</h1>
+  <!--  父组件监听子组件发射的事件-->
+  <cpn :number1="num1" :number2="num2" @num1change="num1change" @num2change="num2change"></cpn>
+  <br>
+  <p>组件通信：</p>
+  <p>父组件num1|2 ==> 子组件number1|2</p>
+  <p>输入框输入值 ==> 子组件data中的dnumber1|2 双向绑定</p>
+  <p>输入框输入值 ==> 事件发送到父组件</p>
+  <p>父组件根据输入框自定义事件 ==> 修改num1|2的值</p>
+  <p>子组件props中number1|2根据父组件num1|2改变</p>
+</div>
+
+<!--子组件模板-->
+<template id="cpn-template">
+  <div>
+    <h2>子组件props中的number1 :{{number1}}</h2>
+    <h2>子组件data中的dnumber1 :{{dnumber1}}</h2>
+    <!--    <input type="text" v-model="dnumber1">-->
+    <input type="text" @input="num1Input" :value="dnumber1">
+    <h2>子组件props中的number2 :{{number2}}</h2>
+    <h2>子组件data中的dnumber2 :{{dnumber2}}</h2>
+    <input type="text" @input="num2Input" :value="dnumber2">
+    <!--    <input type="text" v-model="dnumber2">-->
+  </div>
+</template>
+
+</body>
+</html>
+<script>
+  const cpn = {
+    template: '#cpn-template',
+    props: {
+      number1: Number,
+      number2: Number
+    },
+    data() {
+      return {
+        dnumber1: this.number1,
+        dnumber2: this.number2
+      }
+    },
+    methods: {
+      //还可以通过watch来实现
+      num1Input(event) {
+        this.dnumber1 = event.target.value;
+        this.$emit('num1change', this.dnumber1);
+        //额外 希望number2永远是number1的2倍
+        // this.dnumber2 = this.dnumber1 * 2;
+        // this.$emit('num2change', this.dnumber2);
+      },
+      num2Input(event) {
+        this.dnumber2 = event.target.value;
+        this.$emit('num2change', this.dnumber2);
+      }
+    }
+  }
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      num1: 1,
+      num2: 0
+    },
+    components: {
+      cpn
+    },
+    methods: {
+      num1change(num) {
+        this.num1 = parseInt(num);
+      },
+      num2change(num) {
+        this.num2 = parseInt(num);
+      }
+    }
+  })
+</script>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>组件访问-子访问父-$parent</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<!--父组件模板-->
+<div id="app">
+  <cpn></cpn>
+</div>
+
+<!--子组件模板-->
+<template id="cpn-template">
+  <div>
+    <h2>我是子组件</h2>
+    <button @click="btnClick">打印父组件</button>
+  </div>
+</template>
+
+</body>
+</html>
+<script>
+  const cpn = {
+    template: '#cpn-template',
+    data() {
+      return {}
+    },
+    methods: {
+      btnClick() {
+        //这是访问父组件
+        console.log(this.$parent);
+        this.$parent.showMessage();
+
+
+        //还可以直接访问根组件 也就是Vue实例
+        console.log(this.$root);
+      }
+    }
+  }
+
+  const app = new Vue({
+    el: '#app',
+    data: {name: '我是父组件的name'},
+    components: {
+      cpn
+    },
+    methods: {
+      showMessage() {
+        console.log("我是父组件的showMessage()函数")
+      }
+    }
+  })
+</script>

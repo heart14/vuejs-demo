@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>组件通信-父传子（props中的驼峰标识）</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+  <!--  props中属性名如果是驼峰形式，在绑定数据的时候必须写成-连接-->
+  <cpn :c-info="info" :c-message="message"></cpn>
+</div>
+
+
+<template id="cpn-template">
+  <div>
+    <!--    但模板中要用与props中相同的驼峰形式-->
+    <h2>{{cMessage}}</h2>
+    <ul v-for="item in cInfo">
+      <li>{{item}}</li>
+    </ul>
+  </div>
+</template>
+
+</body>
+</html>
+<script>
+  const cpn = {
+    template: '#cpn-template',
+    props: {
+      cInfo: {
+        type: Object,
+        default() {
+          return {}
+        }
+      },
+      cMessage: {
+        type: String,
+        default() {
+          return 'default hiahia';
+        }
+      }
+    }
+  }
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      info: {
+        name: 'why',
+        age: 18,
+        desc: 'are you so diao?'
+      },
+      message: 'hiahia'
+    },
+    components: {
+      cpn
+    }
+  })
+</script>
