@@ -2,36 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SLOT-插槽的基本用法</title>
+  <title>SLOT-具名插槽的使用</title>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
 
-
 <!--父组件模板-->
 <div id="app">
-  <cpn></cpn>
-  <hr>
   <cpn>
-    <button>按钮</button>
+    <a href="#" slot="left">返回</a>
+    <span slot="mid">标题</span>
+    <button slot="right">搜索</button>
   </cpn>
-  <hr>
-  <cpn>
-    <a href="#">链接</a>
-  </cpn>
-  <hr>
-  <cpn>
-    <input type="text">
-  </cpn>
-  <hr>
 </div>
 
 <!--子组件模板-->
 <template id="cpn-template">
   <div>
     <h2>插槽</h2>
-    <p>案例哈哈哈哈哈</p>
-    <slot><h5>插槽可以有默认值</h5></slot>
+    <slot name="left"><span>左边</span></slot>
+    <slot name="mid"><span>中间</span></slot>
+    <slot name="right"><span>右边</span></slot>
   </div>
 </template>
 
@@ -39,12 +30,11 @@
 </html>
 <script>
   const cpn = {
-    template: '#cpn-template',
+    template: '#cpn-template'
   };
 
   const app = new Vue({
     el: '#app',
-    data: {name: '我是父组件的name'},
     components: {
       cpn
     }

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SLOT-作用域插槽的使用</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<!--父组件模板-->
+<div id="app">
+  <cpn></cpn>
+  <cpn>
+    <!--    2.获取插槽对象取名为hehe-->
+    <template slot-scope="hehe">
+      <!--      3.通过对象.属性 即hehe.haha来获取组件中的数据-->
+      <span v-for="item in hehe.haha">{{item}} - </span>
+    </template>
+  </cpn>
+  <cpn>
+    <template slot-scope="hehe">
+      <span>{{hehe.haha.join(' - ')}}</span>
+    </template>
+  </cpn>
+</div>
+
+<!--子组件模板-->
+<template id="cpn-template">
+  <div>
+    <!--    1.把数据pLanguages绑定到haha-->
+    <slot :haha="pLanguages">
+      <h2 v-show="isShow">模板插槽</h2>
+      <ul>
+        <li v-for="item in pLanguages">{{item}}</li>
+      </ul>
+    </slot>
+  </div>
+</template>
+
+</body>
+</html>
+<script>
+  const cpn = {
+    template: '#cpn-template',
+    data() {
+      return {
+        isShow: false,
+        pLanguages: ['Java', 'JavaScript', 'Python', 'Go', 'PHP', 'C', 'C++', 'C#']
+      }
+    }
+  };
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      isShow: true
+    },
+    components: {
+      cpn
+    }
+  })
+</script>
